@@ -1,9 +1,9 @@
 # fPost
 fPost – CLI für den Getränkeversand
 
-Das CLI für den Getränkeversand „fPost“ leistet Inventar- sowie Auftragsmanagement. Das Programm bietet die Möglichkeit, das Inventar nach Variablen wie Artikelnummer, Name oder Preis zu durchsuchen. Eine Verbindung mit dem Auftragsverlauf lässt sich das noch vorhandene Inventar, die Lieferzeit und Nachfrage berechnen. Die folgenden XML-Dokumente werden Importiert:
+Das CLI für den Getränkeversand „fPost“ leistet Inventar- sowie Auftragsmanagement. Das Programm bietet die Möglichkeit, das Inventar nach Variablen wie Artikelnummer, Name oder Preis zu durchsuchen. Durch eine Verbindung mit dem Auftragsverlauf lässt sich das noch vorhandene Inventar, die Lieferzeit und Nachfrage berechnen. Die folgenden XML-Dokumente werden Importiert:
 
-Produkt-Liste (mit DTD validiert):
+Produkt-Liste:
 
 	•	Produktname
 	•	Artikelnummer
@@ -27,3 +27,5 @@ Diese Dokumente werden zu der folgenden XML-Instanz zusammengefügt:
 	•	Aktualisiertes Inventar (berechnet aus bestellten Produkten)
 	•	Lieferzeit (berechnet aus Bestellzeitpunkt und Lieferzeitpunkt)
 	•	Nachfrage (Anzahl der Bestellungen, berechnet aus bestellten Produkten)
+
+Im CLI lassen sich auch statistische Berechnungen zur durchschnittlichen Lieferzeit oder dem durchschnittlich bezahlten Betrag ausgeben. 
