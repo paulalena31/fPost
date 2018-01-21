@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!DOCTYPE note SYSTEM "auftraege.dtd">
+
+<auftraege>
+<auftrag auftragsnr="1">
+	<kunde>
+		<name>Robert Sader</name>
+		<adresse>
+			<str>Berliner Str.</str>
+			<nr>145</nr>
+			<plz>40177</plz>
+			<stadt>Remscheid</stadt>
+		</adresse>
+	</kunde>
+	<produkt>
+		<artikelnr>2</artikelnr>
+		<anzahl>1</anzahl>
+	</produkt>
+	<preis>10,99</preis>
+	<bestellzeit>2018-01-03T09:35+01:00</bestellzeit>
+	<lieferzeit>2018-01-03T11:20+01:00</lieferzeit>
+</auftrag>
+<auftrag auftragsnr="2">
+	<kunde>
+		<name>Anna Paulsen</name>
+		<adresse>
+			<str>Dammweg</str>
+			<nr>15</nr>
+			<plz>31277</plz>
+			<stadt>Pumheim</stadt>
+		</adresse>
+	</kunde>
+	<produkt>
+		<artikelnr>4</artikelnr>
+		<anzahl>1</anzahl>
+	</produkt>
+	<produkt>
+		<artikelnr>1</artikelnr>
+		<anzahl>1</anzahl>
+	</produkt>
+	<preis>21,89</preis>
+	<bestellzeit>2018-01-03T10:55+01:00</bestellzeit>
+	<lieferzeit>2018-01-03T12:10+01:00</lieferzeit>
+</auftrag>
+<auftrag auftragsnr="3">
+	<kunde>
+		<name>Stefanie Brauer</name>
+		<adresse>
+			<str>Am Lichtenberg</str>
+			<nr>55</nr>
+			<plz>46717</plz>
+			<stadt>Köln</stadt>
+		</adresse>
+	</kunde>
+	<produkt>
+		<artikelnr>3</artikelnr>
+		<anzahl>1</anzahl>
+	</produkt>
+	<preis>6,99</preis>
+	<bestellzeit>2018-01-04T14:30+01:00</bestellzeit>
+	<lieferzeit>2018-01-04T15:15+01:00</lieferzeit>
+</auftrag>
+</auftraege>

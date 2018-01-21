@@ -1,0 +1,16 @@
+<!ELEMENT artikelliste (artikel+)>
+
+<!ELEMENT artikel (name,flaschen,preis,inventar)>
+<!ATTLIST artikel artikelnr CDATA #REQUIRED>
+
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT flaschen (anzahl,volumen)>
+
+<!ELEMENT anzahl (#PCDATA)>
+<!ELEMENT volumen (#PCDATA)>
+
+<!ELEMENT preis (normalpreis,angebotspreis?)>
+<!ELEMENT normalpreis (#PCDATA)>
+<!ELEMENT angebotspreis (#PCDATA)>
+
+<!ELEMENT inventar (#PCDATA)>

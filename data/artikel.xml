@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<!DOCTYPE note SYSTEM "artikel.dtd">
+
+<artikelliste>
+<artikel artikelnr="1">
+	<name>Coca Cola</name>
+	<flaschen>
+		<anzahl>12</anzahl>
+		<volumen>1</volumen>
+	</flaschen>
+	<preis>
+		<normalpreis>10,99</normalpreis>
+	</preis>
+	<inventar>81</inventar>
+</artikel>
+<artikel artikelnr="2">
+	<name>Fanta</name>
+	<flaschen>
+		<anzahl>12</anzahl>
+		<volumen>1</volumen>
+	</flaschen>
+	<preis>
+		<normalpreis>10,99</normalpreis>
+		<angebotspreis>9,49</angebotspreis>
+	</preis>
+	<inventar>63</inventar>
+</artikel>
+<artikel artikelnr="3">
+	<name>Gerolsteiner Medium</name>
+	<flaschen>
+		<anzahl>16</anzahl>
+		<volumen>1</volumen>
+	</flaschen>	
+	<preis>
+		<normalpreis>6,99</normalpreis>
+	</preis>
+	<inventar>19</inventar>
+</artikel>
+<artikel artikelnr="4">
+	<name>Reissdorf Kölsch</name>
+	<flaschen>
+		<anzahl>24</anzahl>
+		<volumen>0,33</volumen>
+	</flaschen>
+	<preis>
+		<normalpreis>13,99</normalpreis>
+		<angebotspreis>12,49</angebotspreis>
+	</preis>
+	<inventar>19</inventar>
+</artikel>
+<artikel artikelnr="5">
+	<name>Reissdorf Kölsch</name>
+	<flaschen>
+		<anzahl>20</anzahl>
+		<volumen>0,5</volumen>
+	</flaschen>
+	<preis>
+		<normalpreis>13,99</normalpreis>
+	</preis>
+	<inventar>19</inventar>
+</artikel>
+</artikelliste>
