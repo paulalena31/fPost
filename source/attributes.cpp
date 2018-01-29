@@ -82,3 +82,13 @@ for (zaehler=0,zustand=inNamen,anzahlAtt=0;*eingabe!='\0';
 
 return 1;
 }
+
+char *ClattToken::getValueByName(char *name)
+{
+    for (int i = 0; i < anzahlAtt; i++)
+    {
+        if(strcmp(name, attName[i]) == 0) return attValue[i];
+    }
+    return NULL;
+}
+

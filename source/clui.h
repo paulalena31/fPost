@@ -1,6 +1,10 @@
 #include <iostream>
 #include <string.h>
+#include <windows.h>
 #include "token.h"
+#include "artikel.h"
+#include "auftrag.h"
+
 using namespace std;
 
 class clUI
@@ -14,6 +18,6 @@ public:
 private:
     int breite;
     int hoehe;
-    ClToken *token;
-    ClElement *wurzel;
+    Artikel *artikel;
+    Auftrag *auftrag;
 };

@@ -8,7 +8,7 @@ ClToken::ClToken()
 {
     *tokenName='\0';
     zahlNaechste = 0;
-    naechste[0]=NULL;
+    for(int i = 0; i < 10; i++) naechste[i] = NULL;
     tokenInhalt=new char[1];
     *tokenInhalt='\0';
 }

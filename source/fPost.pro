@@ -19,10 +19,14 @@ SOURCES += \
     attributes.cpp \
     element.cpp \
     token.cpp \
-    clui.cpp
+    clui.cpp \
+    artikel.cpp \
+    auftrag.cpp
 
 HEADERS += \
     token.h \
     element.h \
     attributes.h \
-    clui.h
+    clui.h \
+    artikel.h \
+    auftrag.h
