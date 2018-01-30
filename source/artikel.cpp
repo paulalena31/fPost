@@ -9,6 +9,7 @@ double toDouble(char *c);
 
 Artikel::Artikel()
 {
+    artikelnr = NULL;
     name = NULL;
     anzFlaschen = NULL;
     volFlaschen = NULL;
@@ -22,6 +23,11 @@ float Artikel::getPreis()
 {
     if (angebotspreis != NULL) return angebotspreis;
     return normalpreis;
+}
+float Artikel::getPreis(int i)
+{
+    if (i == 0) return normalpreis;
+    if (i == 1) return angebotspreis;
 }
 
 void Artikel::fill(ClToken *wurzel)
@@ -37,8 +43,6 @@ int Artikel::fill(ClToken *wurzel, int zaehler)
         return 0;
     }
 
-    if (zaehler >= wurzel->getZahlNaechstes()) return 0;
-
     ClToken *jetzt = wurzel->getNaechstes(zaehler);
     name = jetzt->getNaechstes(0)->inhalt();
     anzFlaschen = atoi( jetzt->getNaechstes(1)->getNaechstes(0)->inhalt() );
@@ -52,6 +56,9 @@ int Artikel::fill(ClToken *wurzel, int zaehler)
     artikelnr = atoi(jetzt->att.getValueByName("artikelnr"));
 
     zaehler++;
+
+    if (zaehler >= wurzel->getZahlNaechstes()) return 0;
+
     naechste = new Artikel();
     return naechste->fill(wurzel, zaehler);
 }
