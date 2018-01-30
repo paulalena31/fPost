@@ -11,10 +11,11 @@ char *sekToHrMin(double sek);
 
 Auftrag::Auftrag()
 {
+    naechste = NULL;
     auftragsNr = NULL;
     kunde = NULL;
-    anzBestellt = 0;
-    for(int i = 0; i < anzBestellt; i++) bestellt[i] = NULL;
+    anzPosten = 0;
+    for(int i = 0; i < anzPosten; i++) posten[i] = NULL;
 }
 
 int Auftrag::fill(ClToken *wurzel)
@@ -27,7 +28,7 @@ int Auftrag::fill(ClToken *wurzel, int zaehler)
     if (strcmp(wurzel->name(), "auftraege") != 0)
     {
         cout << "Token ist keine Auftragsliste." << endl;
-        return 0;
+        return NULL;
     }
 
     if (zaehler >= wurzel->getZahlNaechstes()) return 0;
@@ -37,6 +38,7 @@ int Auftrag::fill(ClToken *wurzel, int zaehler)
     auftragsNr = atoi(jetzt->att.getValueByName("auftragsnr"));
 
     kunde = new kundeS;
+    kunde->kundenNr = atoi(jetzt->getNaechstes(0)->att.getValueByName("kundennr"));
     kunde->name = jetzt->getNaechstes(0)->getNaechstes(0)->inhalt();
     kunde->str = jetzt->getNaechstes(0)->getNaechstes(1)->getNaechstes(0)->inhalt();
     kunde->hausNr = atoi(jetzt->getNaechstes(0)->getNaechstes(1)->getNaechstes(1)->inhalt());
@@ -47,14 +49,14 @@ int Auftrag::fill(ClToken *wurzel, int zaehler)
         && strcmp(jetzt->getNaechstes(1+i)->name(),"produkt") == 0;
         i++)
     {
-        bestellt[i] = new bestelltesProdukt;
-        bestellt[i]->produktNr = atoi(jetzt->getNaechstes(1+i)->getNaechstes(0)->inhalt());
-        bestellt[i]->anzahl = atoi(jetzt->getNaechstes(1+i)->getNaechstes(1)->inhalt());
-        anzBestellt++;
+        posten[i] = new bestelltesProdukt;
+        posten[i]->produktNr = atoi(jetzt->getNaechstes(1+i)->getNaechstes(0)->inhalt());
+        posten[i]->anzahl = atoi(jetzt->getNaechstes(1+i)->getNaechstes(1)->inhalt());
+        anzPosten++;
     }
 
-    bestellZeit = parseTime(jetzt->getNaechstes(1+anzBestellt)->inhalt());
-    ankzuftsZeit = parseTime(jetzt->getNaechstes(2+anzBestellt)->inhalt());
+    bestellZeit = parseTime(jetzt->getNaechstes(1+anzPosten)->inhalt());
+    ankzuftsZeit = parseTime(jetzt->getNaechstes(2+anzPosten)->inhalt());
 
     //Berechne Lieferzeit (Diff. lieferzeit, ankunftszeit)
     lieferZeit = difftime(ankzuftsZeit, bestellZeit);

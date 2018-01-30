@@ -21,7 +21,8 @@ SOURCES += \
     token.cpp \
     clui.cpp \
     artikel.cpp \
-    auftrag.cpp
+    auftrag.cpp \
+    artikelinventar.cpp
 
 HEADERS += \
     token.h \
@@ -29,4 +30,5 @@ HEADERS += \
     attributes.h \
     clui.h \
     artikel.h \
-    auftrag.h
+    auftrag.h \
+    artikelinventar.h
