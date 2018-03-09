@@ -7,7 +7,7 @@ Produktliste:
 
 	•	Produktname
 	•	Artikelnummer
-	•	Anzahl Flaschen in Kasten
+	•	Anzahl Flaschen in Kasten, Volumen pro Flasche
 	•	Preis
 	•	Angebotspreis (optional)
 	•	Initial-Inventar (Anzahl)
