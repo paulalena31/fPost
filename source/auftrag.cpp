@@ -6,7 +6,7 @@
 #include <iomanip>
 
 time_t parseTime(char *in);
-char *printTime(time_t time);
+string printTime(time_t time);
 char *sekToHrMin(double sek);
 
 Auftrag::Auftrag()
@@ -14,8 +14,6 @@ Auftrag::Auftrag()
     naechste = NULL;
     auftragsNr = NULL;
     kunde = NULL;
-    anzPosten = 0;
-    for(int i = 0; i < anzPosten; i++) posten[i] = NULL;
 }
 
 int Auftrag::fill(ClToken *wurzel)
@@ -31,8 +29,6 @@ int Auftrag::fill(ClToken *wurzel, int zaehler)
         return NULL;
     }
 
-    if (zaehler >= wurzel->getZahlNaechstes()) return 0;
-
     ClToken *jetzt = wurzel->getNaechstes(zaehler);
 
     auftragsNr = atoi(jetzt->att.getValueByName("auftragsnr"));
@@ -45,30 +41,48 @@ int Auftrag::fill(ClToken *wurzel, int zaehler)
     kunde->plz = atoi(jetzt->getNaechstes(0)->getNaechstes(1)->getNaechstes(2)->inhalt());
     kunde->stadt = jetzt->getNaechstes(0)->getNaechstes(1)->getNaechstes(3)->inhalt();
 
-    for(int i = 0;jetzt->getNaechstes(1+i) != NULL
+    for(int i = 0; jetzt->getNaechstes(1+i) != NULL
         && strcmp(jetzt->getNaechstes(1+i)->name(),"produkt") == 0;
         i++)
     {
-        posten[i] = new bestelltesProdukt;
-        posten[i]->produktNr = atoi(jetzt->getNaechstes(1+i)->getNaechstes(0)->inhalt());
-        posten[i]->anzahl = atoi(jetzt->getNaechstes(1+i)->getNaechstes(1)->inhalt());
-        anzPosten++;
+        posten.push_back(new bestelltesProdukt);
+        posten.back()->produktNr = atoi(jetzt->getNaechstes(1+i)->getNaechstes(0)->inhalt());
+        posten.back()->anzahl = atoi(jetzt->getNaechstes(1+i)->getNaechstes(1)->inhalt());
     }
 
-    bestellZeit = parseTime(jetzt->getNaechstes(1+anzPosten)->inhalt());
-    ankzuftsZeit = parseTime(jetzt->getNaechstes(2+anzPosten)->inhalt());
+    bestellZeit = parseTime(jetzt->getNaechstes(1+posten.size())->inhalt());
+    ankzuftsZeit = parseTime(jetzt->getNaechstes(2+posten.size())->inhalt());
 
     //Berechne Lieferzeit (Diff. lieferzeit, ankunftszeit)
     lieferZeit = difftime(ankzuftsZeit, bestellZeit);
 
     zaehler++;
+
+    if (zaehler >= wurzel->getZahlNaechstes()) return 0;
+
     naechste = new Auftrag();
-    return naechste->fill(wurzel, zaehler);
+    naechste->fill(wurzel, zaehler);
 }
 
 char *Auftrag::getLieferZeit()
 {
     return sekToHrMin(lieferZeit);
+}
+
+void Auftrag::drucke()
+{
+    cout << "Auftrag Nr: " << auftragsNr << "     bestellt: " << printTime(bestellZeit)
+         << "  geliefert: " << printTime(ankzuftsZeit) << endl;
+    cout << "Kunde Nr: " << kunde->kundenNr << " " << kunde->name << ", " << kunde->str << " "
+         << kunde->hausNr << ", " << kunde->plz << " " << kunde->stadt << endl;
+    cout << "Posten: " << endl;
+    for (int i=0; i < posten.size(); i++) cout << "    " << posten[i]->anzahl << "mal   ArtikelNr: " << posten[i]->produktNr << endl;
+
+
+
+    cout << "\n" << endl;
+
+    if(getNext() != NULL) getNext()->drucke();
 }
 
 time_t parseTime(char *in)
@@ -78,16 +92,15 @@ time_t parseTime(char *in)
     ss >> get_time(&tm, "%Y-%m-%dT%R");
     time_t a = mktime(&tm);
     return mktime(&tm);
-    //return tm;
 }
 
-char *printTime(time_t time)
+string printTime(time_t time)
 {
-    char buffer[80];
+    char buffer[17];
     struct tm *loc = localtime(&time);
-    strftime(buffer, 80, "%Y-%m-%d %H:%M", loc);
-    cout << buffer << endl;
-    return buffer;
+    strftime(buffer, 17, "%Y-%m-%d %H:%M", loc);
+    string out(buffer);
+    return out;
 }
 char *sekToHrMin(double sek)
 {

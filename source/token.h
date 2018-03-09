@@ -3,6 +3,7 @@
 
 #include "attributes.h"
 #include <fstream>
+#include <vector>
 
 class ClToken
    {
@@ -10,7 +11,7 @@ public:
    ClToken();
    char *name() { return tokenName; }
    char *inhalt() { return tokenInhalt; }
-   ClToken *getNaechstes(int i) {return naechste[i];}
+   ClToken *getNaechstes(int i);
    int getZahlNaechstes() {return zahlNaechste;}
    void addChildToken();
    void druckeToken(int ebene);
@@ -21,7 +22,7 @@ private:
    void druckeTokenEbene(int ebene);
    int fillToken(int mode);
    char tokenName[64];
-   ClToken *naechste[10];
+   std::vector<ClToken*> naechste;
    int zahlNaechste;
    char *tokenInhalt;
    } ;

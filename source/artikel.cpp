@@ -63,6 +63,17 @@ int Artikel::fill(ClToken *wurzel, int zaehler)
     return naechste->fill(wurzel, zaehler);
 }
 
+void Artikel::drucke()
+{
+    cout << "Artikel: " << name << "   ArtikelNr: " << artikelnr << endl;
+    cout << anzFlaschen << " Flaschen a " << volFlaschen << "l" << endl;
+    cout << "initial-Inventar: " << inventar << endl;
+    cout << "Preis: " << getPreis() << " Euro";
+    if (angebotspreis != NULL) cout << " (Normalpreis: " << normalpreis << " Euro)";
+    cout << "\n" << endl;
+    if(getNext() != NULL) getNext()->drucke();
+}
+
 double toDouble(char *c){
     replace(c, c+strlen(c), ',', '.');
     return atof(c);

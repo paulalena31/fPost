@@ -17,6 +17,7 @@ public:
     int getAnzFlaschen() {return anzFlaschen;}
     int getVolFlaschen() {return volFlaschen;}
     int getInventar() {return inventar;}
+    void drucke();
     Artikel *getNext() {return naechste;}
     void fill(ClToken *wurzel);
 private:

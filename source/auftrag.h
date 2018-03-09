@@ -2,6 +2,7 @@
 #define AUFTRAG_H
 
 #include "token.h"
+#include <vector>
 #include <time.h> //für Repräsentation der bestell-/ankuftszeit
 
 //Die Klasse Auftrag repräsentiert Aufträge aus der XML-Instanz Auftragsliste.
@@ -27,17 +28,18 @@ public:
     int getNo() {return auftragsNr;}
     kundeS *getKunde() {return kunde;}
     bestelltesProdukt *getPosten(int i) {return posten[i];}
-    int getAnzPosten() {return anzPosten;}
+    int getAnzPosten() {return posten.size();}
     Auftrag *getNext() {return naechste;}
+    double getLieferZeitDouble() {return lieferZeit;}
     char *getLieferZeit();
+    void drucke();
     int fill(ClToken *wurzel);
     int fill(ClToken *wurzel, int zaehler);
 private:
     Auftrag *naechste;
     int auftragsNr;
     kundeS *kunde;
-    bestelltesProdukt *posten[10];
-    int anzPosten;
+    vector<bestelltesProdukt*> posten;
     time_t bestellZeit;
     time_t ankzuftsZeit;
     double lieferZeit;

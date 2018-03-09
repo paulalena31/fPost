@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string.h>
+#include <vector>
 #include <windows.h> //für Terminalfarben
 #include "token.h"
 #include "artikel.h"
@@ -18,12 +19,16 @@ public:
     void mainMenu();
     ClToken *leseDaten();
     void konvertieren();
+    vector<ArtikelInventar*> durchsuchen();
+    void exportieren();
+    void exportieren(vector<ArtikelInventar*> in);
+    void statistiken();
     void zeigeBaum(ClToken *token);
 
 private:
     int breite;
-    int hoehe;
     ArtikelInventar *inventar;
+    vector<ArtikelInventar*> letzteSuche;
     Artikel *artikel;
     Auftrag *auftrag;
 };

@@ -1,9 +1,11 @@
 #include "artikelinventar.h"
 #include <iostream>
-using namespace std;
+#include <algorithm>
+#include "string.h"
 
-string stringToken(string name, string inhalt, bool isChild);
-string stringToken(string name, string inhalt, bool isChild, string attName, string attVal);
+string stringToken(string name, string inhalt, int ebene);
+string stringToken(string name, string inhalt, int ebene, string attName, string attVal);
+double charToDouble(char *c);
 
 ArtikelInventar::ArtikelInventar()
 {
@@ -50,6 +52,65 @@ void ArtikelInventar::verarbeite(Auftrag *auftrag)
     }
 }
 
+vector<ArtikelInventar*> ArtikelInventar::suche(char *kategorie, char *term)
+{
+    //Durchsucht alle Artikel von diesem Objekt aus nach "term" in "kategorie", füllt einen vector mit
+    //Ergebnissen (Pointer zu ArtikelInventar-Objekten)
+    //
+
+    vector<ArtikelInventar*> gefunden;
+    if(strcmp(kategorie, "name") == 0){
+        if(strcmp(name, term) == 0) gefunden.push_back(this);
+    }
+    else if (strcmp(kategorie, "artikelnr") == 0){
+            if(artikelnr == atoi(term)) gefunden.push_back(this);
+    }
+    else if (strcmp(kategorie, "normalpreis") == 0){
+            if(charToDouble(term) == normalpreis) gefunden.push_back(this);
+    }
+    else if (strcmp(kategorie, "angebotspreis") == 0){
+            if(charToDouble(term) == angebotspreis) gefunden.push_back(this);
+    }
+
+    if(getNext() != NULL)
+    {
+        //Rekursive Ausführung, Suche in naechste-Objekt
+        vector<ArtikelInventar*> next = getNext()->suche(kategorie, term);
+        //zusammenfügen der zurückgegebenen Ergebnisse
+        gefunden.reserve(gefunden.size() + next.size());
+        gefunden.insert(gefunden.end(), next.begin(), next.end());
+    }
+    return gefunden;
+}
+
+vector<ArtikelInventar*> ArtikelInventar::suche(char *kategorie, char *term, vector<ArtikelInventar*> in)
+{
+    //Suche eingeschränkt nur innerhalb vector "in", bei Suche mit mehreren Suchtermen
+    vector<ArtikelInventar*> gefunden;
+
+    for(int i = 0; i < in.size(); i++)
+    {
+        if(strcmp(kategorie, "name") == 0){
+            if(strcmp(in[i]->getName(), term) == 0) gefunden.push_back(in[i]);
+        }
+        else if (strcmp(kategorie, "artikelnr") == 0){
+                if(in[i]->getNo() == atoi(term)) gefunden.push_back(in[i]);
+        }
+        else if (strcmp(kategorie, "normalpreis") == 0){
+                if(charToDouble(term) == in[i]->getNormalpreis()) gefunden.push_back(in[i]);
+        }
+        else if (strcmp(kategorie, "angebotspreis") == 0){
+                if(charToDouble(term) == in[i]->getAngebotspreis()) gefunden.push_back(in[i]);
+        }
+        else if (strcmp(kategorie, "anzahlBestellt") == 0){
+                if(charToDouble(term) == in[i]->getAnzBestellt()) gefunden.push_back(in[i]);
+        }
+    }
+
+    return gefunden;
+}
+
+
 ArtikelInventar *ArtikelInventar::getArtikelByNo(int no)
 {
     //Sucht ArtikelInventar-Objekt nach der ArtikelNr und gibt dies zurück. Nur bei Anwendung im Wurzel-Objekt sinvoll.
@@ -65,66 +126,91 @@ ArtikelInventar *ArtikelInventar::getArtikelByNo(int no)
 void ArtikelInventar::addBestellt(int kundenNr, int anzahl)
 {
     //Fügt Bestellungen dem ArtikelInventar-Objekt in den
-    //synchronisierten Arrays bestelltVon (kundenNr) und bestelltAnz (Anzahl) hinzu
-    for (int i = 0; i < anzBestellt; i++)
+    //synchronisierten vectors bestelltVon (kundenNr) und bestelltVonAnz (Anzahl) hinzu
+    for (int i = 0; i < bestelltVon.size(); i++)
     {
-        //Ist dieser Kunde (diese KundenNr) bereits im Array vertreten, wird der hinterlegte Wert nur aktualisiert
+        //Ist dieser Kunde (diese KundenNr) bereits im vector vertreten, wird der hinterlegte Wert nur aktualisiert
         if(bestelltVon[i] == kundenNr)
         {
             bestelltVon[i] += anzahl;
             break;
         }
     }
-    bestelltVon[anzBestellt] = kundenNr;
-    bestelltVonAnz[anzBestellt] = anzahl;
-    anzBestellt ++;
+    bestelltVon.push_back(kundenNr);
+    bestelltVonAnz.push_back(anzahl);
+    anzBestellt += anzahl;
 }
 
 
 void ArtikelInventar::speichern(ofstream &datei)
 {
+    string bufferPreis = "";
+    if(angebotspreis != NULL) bufferPreis = stringToken("angebotspreis", to_string(angebotspreis), 2);
+
+    string bufferBestelltVon = "";
+    for(int i = 0; i < bestelltVon.size(); i++)
+    {
+        bufferBestelltVon += stringToken("kunde", "\n" +
+                                         stringToken("kundenNr", to_string(bestelltVon[i]), 2) +
+                                         stringToken("anzBestellt", to_string(bestelltVonAnz[i]), 2) +
+                                         "    "
+                                         ,1);
+    }
+
     string buffer = stringToken("inventarArtikel", "\n" +
-                         stringToken("name", name, true) +
-                         stringToken("inventar", to_string(inventar), true)
-                         ,false, "artikelnr", to_string(artikelnr));
+                         stringToken("name", name, 1) +
+                         stringToken("inventar", to_string(inventar), 1) +
+                         stringToken("preis", "\n" +
+                                     stringToken("normalpreis", to_string(normalpreis), 2) +
+                                     bufferPreis + "    "
+                                     ,1) +
+                         stringToken("flaschen", "\n" +
+                                     stringToken("anzahl", to_string(anzFlaschen), 2) +
+                                     stringToken("volumen", to_string(volFlaschen), 2) + "    "
+                                     , 1) +
+                         bufferBestelltVon
+                         ,0 , "artikelnr", to_string(artikelnr));
+
     cout << buffer << endl;
     datei << buffer;
-
-    if(naechste != NULL)
-    {
-        getNext()->speichern(datei);
-    }
 }
 
 void ArtikelInventar::drucke()
 {
-    cout << "Artikel: " << name << "   ArtikelNr: " << artikelnr << endl;
+    cout << "\nArtikel: " << name << "   ArtikelNr: " << artikelnr << endl;
     cout << "   " << anzFlaschen << " Flaschen a " << volFlaschen << "l pro Kasten" << endl;
     cout << "   aktuelles Inventar: " << inventar << endl;
+    cout << "   " << anzBestellt << " K\204sten bestellt" << endl;
     cout << "   zuletzt bestellt von: " << endl;
-    for(int i = 0; i < anzBestellt; i++)
+    for(int i = 0; i < bestelltVon.size(); i++)
     {
         cout << "     KundenNr: " << bestelltVon[i] << " (" << bestelltVonAnz[i] << " mal)" << endl;
     }
+    cout << endl;
 }
 
-string stringToken(string name, string inhalt, bool isChild)
+string stringToken(string name, string inhalt, int ebene)
 {
     string buffer;
-    if(isChild) buffer += "    ";
+    for(int i = 0; i < ebene; i++) buffer += "    ";
     buffer += "<" + name + ">";
     buffer += inhalt;
     buffer += "</" + name + ">\n";
     return buffer;
 }
-string stringToken(string name, string inhalt, bool isChild, string attName, string attVal)
+string stringToken(string name, string inhalt, int ebene, string attName, string attVal)
 {
     string buffer;
-    if(isChild) buffer += "    ";
+    for(int i = 0; i < ebene; i++) buffer += "    ";
     buffer += "<" + name + " ";
     buffer += attName + "=\"" + attVal + "\">";
     buffer += inhalt;
     buffer += "</" + name + ">\n";
     return buffer;
+}
+
+double charToDouble(char *c){
+    replace(c, c+strlen(c), ',', '.');
+    return atof(c);
 }
 

@@ -6,16 +6,20 @@ using namespace std;
 
 ClToken::ClToken()
 {
-    *tokenName='\0';
     zahlNaechste = 0;
-    for(int i = 0; i < 10; i++) naechste[i] = NULL;
+    *tokenName='\0';
     tokenInhalt=new char[1];
     *tokenInhalt='\0';
 }
 
 void ClToken::addChildToken(){
-    naechste[zahlNaechste] = new ClToken();
+    naechste.push_back(new ClToken());
     zahlNaechste++;
+}
+
+ClToken *ClToken::getNaechstes(int i){
+    if(i < naechste.size()) return naechste[i];
+    else return NULL;
 }
 
 //element: aktuelles Element in DTD-Baum; wurzel: Wurzel des DTD-Baumes
@@ -64,7 +68,7 @@ int  ClToken::getToken(
                     datei.putback('<');
 
                     addChildToken();
-                    if (naechste[zahlNaechste-1]->getToken(datei,element,wurzel)==0)
+                    if (naechste[naechste.size()-1]->getToken(datei,element,wurzel)==0)
                     {
                         return fillToken(0);
                     }
@@ -154,8 +158,6 @@ void ClToken::druckeToken(
                  << att.zeigeAttWert(i) << endl;
         }
     }
-    //if (tokenChild!=NULL) tokenChild->druckeToken(ebene+1);
-    //if (tokenSibling!=NULL) tokenSibling->druckeToken(ebene);
 }
 
 void ClToken::druckeTokenEbene(
