@@ -1,6 +1,3 @@
-<?xml version="1.0"?>
-<!DOCTYPE note SYSTEM "artikel.dtd">
-
 <artikelliste>
 <artikel artikelnr="1">
 	<name>Coca Cola</name>
@@ -26,7 +23,7 @@
 	<inventar>63</inventar>
 </artikel>
 <artikel artikelnr="3">
-	<name>Gerolsteiner Medium</name>
+	<name>Fanta</name>
 	<flaschen>
 		<anzahl>16</anzahl>
 		<volumen>1</volumen>
@@ -58,5 +55,27 @@
 		<normalpreis>13,99</normalpreis>
 	</preis>
 	<inventar>19</inventar>
+</artikel>
+<artikel artikelnr="6">
+	<name>Gerolsteiner Mineralwasser</name>
+	<flaschen>
+		<anzahl>18</anzahl>
+		<volumen>1</volumen>
+	</flaschen>
+	<preis>
+		<normalpreis>5,39</normalpreis>
+	</preis>
+	<inventar>38</inventar>
+</artikel>
+<artikel artikelnr="7">
+	<name>Club Mate</name>
+	<flaschen>
+		<anzahl>18</anzahl>
+		<volumen>0,75</volumen>
+	</flaschen>
+	<preis>
+		<normalpreis>13,49</normalpreis>
+	</preis>
+	<inventar>12</inventar>
 </artikel>
 </artikelliste>
