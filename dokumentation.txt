@@ -1,0 +1,20 @@
+Dokumentation fPost
+
+fPost ist ein Managementsystem für einen Getränkeversand.
+Daten in form einer Artikelliste (xml) lassen sich mit einer Auftragsliste (xml) zu einer ArtikelInventar-Liste zusammenführen, 
+die eine erweiterte Artikelliste mit aktualisiertem Inventar und weiteren Informationen ist. Die zusammengeführte Datei lässt sich
+wiederum als xml-Dokument ausgeben.
+
+Menüführung:
+(1) Daten einlesen
+    ermöglicht, die Artikel- und Auftragsliste einzulesen. Die Daten müssen sich mit den dazugehörigen DTD-Dateien im Build-Verzeichnis
+    (oder anderes angegebenes Hauptverzeichnis) liegen. 
+    Die Standard-Dateinamen, die eingegeben werden müssen, sind:  artikel.dtd
+                                                                  artikel.xml
+                                                                  auftraege.dtd
+                                                                  auftraege.xml
+                                                                  
+    Das erfolgreiche Einlesen wird mit einer entsprechenden Meldung bestätigt.
+    
+(2) Daten konvertieren
+    führt beide eingelesenen Dateien zusammen und speichert diese in Form einer XML-Instanz unter einem beliebigen Dateinamen.
