@@ -55,3 +55,33 @@ Die Statistiken können auch in einer Ausgabedatei gespeichert werden.
 
  - Beendet das Programm
 
+## Funktionsweise
+
+#### Import der Artikel- und Auftragsliste 
+
+ - Beide XML-Instanzen werden per DTD validiert `Artikel::fill(ClToken  *wurzel,  int  zaehler)`  und `Auftrag::fill(ClToken  *wurzel,  int  zaehler)`
+ - Die Daten in mehrere artikel und auftrag-Objekte überführt, die untereinander als linked list organisiert sind 
+ - Zahlenwerte wie angebots- und normalpreis werden in double-Variablen konvertiert
+ - Zeitangaben aus der Auftragsliste werden zu [time_t-Objekten](http://www.cplusplus.com/reference/ctime/time/) konvertiert (zur einfacheren Berechnung der Lieferzeit)
+
+#### Konvertierung /Zusammenführung
+
+ - artikel- und auftrag-Objekte werden in ArtikelInventar-Objekten zusammengeführt (jedes ArtikelInventar-Objekt repräsentiert einen Artikel): 
+		 - Daten aus artikel-Objekten werden in ArtikelInventar-Objekte kopiert (z.B. name, normalpreis, angebotspreis) `ArtikelInventar::kopiere(Artikel  *artikel)`
+		 - Informationen zu Häufigkeit der Bestellung und daraus berechnetes aktualisiertes Inventar werden aus Information der auftrag-Objekte den ArtikelInventar-Objekten hinzugefügt `ArtikelInventar::verarbeite(Auftrag  *auftrag)`
+		 - Synchronisierte Vectoren mit Daten dazu, welche Kunden dieses Produkt bestellt haben, wird mit Kundennummer und Bestellanzahl hinzugefügt `ArtikelInventar::verarbeite(Auftrag  *auftrag)`
+		 - Ausgabe/ Export der Daten als XML-Instanz `ArtikelInventar::speichern(ofstream  &datei)`
+
+#### Suche
+
+ - Suche erfragt Kategorie und Suchterm
+ - Suchterm wird in der der Kategorie entsprechenden Variable in jedem ArtikelInventar-Objekt verglichen: Funktion `ArtikelInventar::suche()`
+ - Bei jedem positiven Vergleich wird ein Pointer des gefundenen ArtikelInventar-Obejtes in einem Vector hinzugefügt
+ - Bei dem Hinzufügen eines weiteren Suchterms wird anhand der überladenen suchen()-Funktion jedes ArtikelInventar-Obejet aus dem Ergebnis-Vector des vorherigen Schrittes anhand des neuen Suchterms durchsucht, dann wird wieder ein Vector mit den Ergebnissen zusammengestellt
+ - Wird kein weiterer Suchterm mehr angegeben, werden die ArtikelInventar-Obejekte aus dem Ergebnis-Vektor ausgegeben
+ - Ein exportieren der Ergebnisse ist über Option (4) möglich, da der letzte Ergebnis-Vektor immer gespeichert wird.
+
+#### Exportieren
+
+ - Variablwerte der ArtikelInventar-Objekte werden in Form einer XML-Instanz in eine Datei geschrieben.
+ - `ArtikelInventar::speichern(ofstream  &datei)` und Helferfunktion `stringToken()` in ArtikelInventar-Klasse sorgt für entsprechende Formatierung und Einrückung
