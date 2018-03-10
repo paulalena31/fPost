@@ -1,5 +1,6 @@
 # fPost
 fPost – CLI für den Getränkeversand
+https://github.com/stereolith/fPost
 
 ## Dokumentation
 
