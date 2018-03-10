@@ -1,23 +1,11 @@
-<!ELEMENT auftraege (auftrag+)>
+<!ELEMENT auftraege auftrag>
 
-<!ELEMENT auftrag (kunde,produkt+,preis,bestellzeit,lieferzeit)>
-<!ATTLIST auftrag auftragsnr CDATA #REQUIRED>
+<!ELEMENT auftrag kunde produkt bestellzeit lieferzeit>
+<!ATTLIST auftrag auftragsnr>
 
-<!ELEMENT kunde (name,adresse)>
-<!ELEMENT name (#PCDATA)>
+<!ELEMENT kunde name adresse>
+<!ATTLIST kunde kundennr>
 
-<!ELEMENT adresse (str,nr,plz,stadt)>
-<!ELEMENT str (#PCDATA)>
-<!ELEMENT nr (#PCDATA)>
-<!ELEMENT plz (#PCDATA)>
-<!ELEMENT stadt (#PCDATA)>
+<!ELEMENT adresse str nr plz stadt>
 
-<!ELEMENT preis (#PCDATA)>
-
-<!ELEMENT produkt (artikelnr,anzahl)>
-<!ELEMENT artikelnr (#PCDATA)>
-<!ELEMENT anzahl (#PCDATA)>
-
-<!ELEMENT preis (#PCDATA)>
-<!ELEMENT bestellzeit (#PCDATA)>
-<!ELEMENT lieferzeit (#PCDATA)>
+<!ELEMENT produkt artikelnr anzahl>
