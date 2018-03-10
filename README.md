@@ -66,11 +66,10 @@ Die Statistiken können auch in einer Ausgabedatei gespeichert werden.
 
 #### Konvertierung /Zusammenführung
 
- - artikel- und auftrag-Objekte werden in ArtikelInventar-Objekten zusammengeführt (jedes ArtikelInventar-Objekt repräsentiert einen Artikel): 
-		 - Daten aus artikel-Objekten werden in ArtikelInventar-Objekte kopiert (z.B. name, normalpreis, angebotspreis) `ArtikelInventar::kopiere(Artikel  *artikel)`
-		 - Informationen zu Häufigkeit der Bestellung und daraus berechnetes aktualisiertes Inventar werden aus Information der auftrag-Objekte den ArtikelInventar-Objekten hinzugefügt `ArtikelInventar::verarbeite(Auftrag  *auftrag)`
-		 - Synchronisierte Vectoren mit Daten dazu, welche Kunden dieses Produkt bestellt haben, wird mit Kundennummer und Bestellanzahl hinzugefügt `ArtikelInventar::verarbeite(Auftrag  *auftrag)`
-		 - Ausgabe/ Export der Daten als XML-Instanz `ArtikelInventar::speichern(ofstream  &datei)`
+ - artikel- und auftrag-Objekte werden in ArtikelInventar-Objekten zusammengeführt (jedes ArtikelInventar-Objekt repräsentiert einen Artikel):	 - Daten aus artikel-Objekten werden in ArtikelInventar-Objekte kopiert (z.B. name, normalpreis, angebotspreis) `ArtikelInventar::kopiere(Artikel  *artikel)`
+	 - Informationen zu Häufigkeit der Bestellung und daraus berechnetes aktualisiertes Inventar werden aus Information der auftrag-Objekte den ArtikelInventar-Objekten hinzugefügt `ArtikelInventar::verarbeite(Auftrag  *auftrag)`
+	 - Synchronisierte Vectoren mit Daten dazu, welche Kunden dieses Produkt bestellt haben, wird mit Kundennummer und Bestellanzahl hinzugefügt `ArtikelInventar::verarbeite(Auftrag  *auftrag)`
+	 - Ausgabe/ Export der Daten als XML-Instanz `ArtikelInventar::speichern(ofstream  &datei)`
 
 #### Suche
 
