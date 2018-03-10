@@ -11,8 +11,8 @@ class Artikel
 public:
     Artikel();
     char *getName() {return name;}
-    float getPreis();
-    float getPreis(int i);
+    double getPreis();
+    double getPreis(int i);
     int getNo() {return artikelnr;}
     int getAnzFlaschen() {return anzFlaschen;}
     int getVolFlaschen() {return volFlaschen;}

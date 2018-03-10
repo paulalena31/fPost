@@ -21,6 +21,7 @@ public:
     void addBestellt(int kundenNr, int anzahl);
     char *getName() {return name;}
     int getNo() {return artikelnr;}
+    double getPreis();
     double getNormalpreis() {return normalpreis;}
     double getAngebotspreis() {return angebotspreis;}
     int getInventar() {return inventar;}

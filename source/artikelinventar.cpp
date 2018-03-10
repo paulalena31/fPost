@@ -179,6 +179,8 @@ void ArtikelInventar::drucke()
 {
     cout << "\nArtikel: " << name << "   ArtikelNr: " << artikelnr << endl;
     cout << "   " << anzFlaschen << " Flaschen a " << volFlaschen << "l pro Kasten" << endl;
+    cout << "   Normalpreis: " << normalpreis << " Euro"<<  endl;
+    if(angebotspreis != NULL) cout << "      Angebotspreis "<< angebotspreis << " Euro" << endl;
     cout << "   aktuelles Inventar: " << inventar << endl;
     cout << "   " << anzBestellt << " K\204sten bestellt" << endl;
     cout << "   zuletzt bestellt von: " << endl;
@@ -187,6 +189,12 @@ void ArtikelInventar::drucke()
         cout << "     KundenNr: " << bestelltVon[i] << " (" << bestelltVonAnz[i] << " mal)" << endl;
     }
     cout << endl;
+}
+
+double ArtikelInventar::getPreis()
+{
+    if(angebotspreis == NULL) return normalpreis;
+        else return angebotspreis;
 }
 
 string stringToken(string name, string inhalt, int ebene)
@@ -213,4 +221,5 @@ double charToDouble(char *c){
     replace(c, c+strlen(c), ',', '.');
     return atof(c);
 }
+
 

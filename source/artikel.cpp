@@ -19,12 +19,12 @@ Artikel::Artikel()
     naechste = NULL;
 }
 
-float Artikel::getPreis()
+double Artikel::getPreis()
 {
     if (angebotspreis != NULL) return angebotspreis;
     return normalpreis;
 }
-float Artikel::getPreis(int i)
+double Artikel::getPreis(int i)
 {
     if (i == 0) return normalpreis;
     if (i == 1) return angebotspreis;
