@@ -63,6 +63,8 @@ Die Statistiken können auch in einer Ausgabedatei gespeichert werden.
  - Die Daten in mehrere artikel und auftrag-Objekte überführt, die untereinander als linked list organisiert sind 
  - Zahlenwerte wie angebots- und normalpreis werden in double-Variablen konvertiert
  - Zeitangaben aus der Auftragsliste werden zu [time_t-Objekten](http://www.cplusplus.com/reference/ctime/time/) konvertiert (zur einfacheren Berechnung der Lieferzeit)
+ - Lieferzeit wird mit Hilfe der difftime-Funktion in Sekunden in der Variable lieferzeit gespeichert
+
 
 #### Konvertierung /Zusammenführung
 
@@ -85,3 +87,8 @@ Die Statistiken können auch in einer Ausgabedatei gespeichert werden.
 
  - Variablwerte der ArtikelInventar-Objekte werden in Form einer XML-Instanz in eine Datei geschrieben.
  - `ArtikelInventar::speichern(ofstream  &datei)` und Helferfunktion `stringToken()` in ArtikelInventar-Klasse sorgt für entsprechende Formatierung und Einrückung
+
+#### Statistiken
+ - Daten wie Anzahl Verkaufter Kästen und Anzahl von Kästen/Flaschen im Inventar werden aus allen ArtikelInventar-Objekten berechnet `clUI::statistiken()`
+ - Durchschnittliche Lieferzeit wird aus allen auftrag-Objekten berechnet
+ - Statistiken können exportiert werden
