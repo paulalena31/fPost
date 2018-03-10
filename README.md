@@ -1,21 +1,22 @@
 # fPost
 fPost – CLI für den Getränkeversand
 
-Dokumentation
+## Dokumentation
 
 fPost ist ein Managementsystem für einen Getränkeversand.
 Daten in Form einer Artikelliste (xml) lassen sich mit einer Auftragsliste (xml) zu einer ArtikelInventar-Liste zusammenführen, 
 die eine erweiterte Artikelliste mit aktualisiertem Inventar und weiteren Informationen ist. Die zusammengeführte Datei lässt sich
 wiederum als xml-Dokument ausgeben.
 
-Menüführung:
+### Menüführung:
 (1) Daten einlesen
-	ermöglicht, die Artikel- und Auftragsliste einzulesen. Die Daten müssen mit den dazugehörigen DTD-Dateien im Build-Verzeichnis
-	(oder anderes angegebenes Hauptverzeichnis) liegen. Beispieldaten sind im Ordner "data" zu finden.
-	Die Standard-Dateinamen der Beispieldaten sind:	artikel.dtd
-                                                      	artikel.xml
-                                                      	auftraege.dtd
-                                                      	auftraege.xml
+   *ermöglicht, die Artikel- und Auftragsliste einzulesen. Die Daten müssen mit den dazugehörigen DTD-Dateien im Build-Verzeichnis
+   (oder anderes angegebenes Hauptverzeichnis) liegen. Beispieldaten sind im Ordner "data" zu finden.
+   Die Standard-Dateinamen der Beispieldaten sind:   
+   *artikel.dtda
+   *artikel.xml
+   *auftraege.dtd
+   *auftraege.xml
                                                                   
     	Das erfolgreiche Einlesen wird mit einer entsprechenden Meldung bestätigt. Die eingelesenen Daten werden in lesbarer Form in der
 	Konsole ausgegeben.
