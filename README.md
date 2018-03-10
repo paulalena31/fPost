@@ -90,5 +90,5 @@ Die Statistiken können auch in einer Ausgabedatei gespeichert werden.
 
 #### Statistiken
  - Daten wie Anzahl Verkaufter Kästen und Anzahl von Kästen/Flaschen im Inventar werden aus allen ArtikelInventar-Objekten berechnet `clUI::statistiken()`
- - Durchschnittliche Lieferzeit wird aus allen auftrag-Objekten berechnet
+ - Die Durchschnittliche Lieferzeit wird aus allen auftrag-Objekten berechnet
  - Statistiken können exportiert werden
