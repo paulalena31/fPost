@@ -287,8 +287,6 @@ void clUI::statistiken()
         summeV += jetzt->getInventar() * jetzt->getAnzFlaschen() * jetzt->getVolFlaschen();
         jetzt = jetzt->getNext();
     }
-    cout << "Inventar:" << endl;
-    cout << "  K\204sten: " << summeK << "   Flaschen: " << summeF << "   Gesamtvolumen: " << summeV << "l" << endl;
     buffer += "Inventar:\n   K\204sten: " + to_string(summeK) + "   Flaschen: " + to_string(summeF) + "   Gesamtvolumen: " + to_string(summeV) + "l\n";
 
     //Anzahl verkaufter K\204sten nach letztem Import der Auftragsliste
@@ -300,7 +298,6 @@ void clUI::statistiken()
         jetztArtikel = jetztArtikel->getNext();
     }
     int verkauft = summeInit - summeK;
-    cout << "K\204sten verkauft nach letztem Auftragsimport: " << verkauft << endl;
     buffer += "K\204sten verkauft nach letztem Auftragsimport: " + to_string(verkauft) + "\n";
 
     //Durchschnittliche Lieferzeit
@@ -315,10 +312,10 @@ void clUI::statistiken()
     }
     double durchschnitt = summeZeit / anzAuftraege;
     string test = sekToHrMin(durchschnitt);
-    cout << "Durchschnittliche Lieferzeit: " << sekToHrMin(durchschnitt) << endl;
     buffer += "Durchschnittliche Lieferzeit: " + sekToHrMin(durchschnitt) + "\n";
 
     char dateiname[50];
+    cout << buffer;
     cout << "Bitte geben Sie einen Dateinamen f\201r die Ausgabgsdatei ein: ";
     cin >> dateiname;
     ofstream datei(dateiname);
