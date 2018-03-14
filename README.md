@@ -1,6 +1,7 @@
 # fPost
 fPost – CLI für den Getränkeversand
 https://github.com/stereolith/fPost
+> Projekt im Rahmen des Seminars "C++ - Programmieren - 1" im Wintersemester 2017/ 2018.
 
 ## Dokumentation
 
